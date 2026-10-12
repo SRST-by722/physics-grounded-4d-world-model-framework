@@ -9,14 +9,14 @@ import ast
 import hashlib
 import json
 import math
-from pathlib import Path
 import time
+from pathlib import Path
 
 import h5py
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
+from torch import nn
 
 REFERENCE = Path(__file__).with_name("AI4Urban_reference.py")
 
@@ -62,7 +62,8 @@ def build_model(solid, cell, device, dt=0.5, ub=-1.0, re=0.15):
         ratio_x=nx // nz,
         ratio_y=ny // nz,
     )
-    exec(compile(ast.Module(body=selected, type_ignores=[]), str(REFERENCE), "exec"), ns)
+    # Runs the selected definitions of the frozen upstream reference script.
+    exec(compile(ast.Module(body=selected, type_ignores=[]), str(REFERENCE), "exec"), ns)  # noqa: S102
     ns["diag"] = float(ns["wA"][0, 0, 1, 1, 1])
     model = ns["AI4Urban"]().to(device).eval().requires_grad_(False)
     # Original inflow/outflow u ghost cells also force air through underground
@@ -100,7 +101,7 @@ def self_test():
     mask[0] = True
     mask[:4, 6:10, 10:14] = True
     cpu, nc = build_model(mask, 8.0, torch.device("cpu"))
-    gpu, ng = build_model(mask, 8.0, torch.device("cuda"))
+    gpu, _ng = build_model(mask, 8.0, torch.device("cuda"))
     shape = mask.shape
     # Preserve and document original stencil gain/sign rather than silently
     # replacing it with a different discretization.
@@ -198,7 +199,7 @@ def main():
             )
         write_json(out / f"run_config_adapter_{previous['adapter_sha256'][:12]}.json", previous)
     write_json(config_file, config)
-    model, ns = build_model(solid, cell, torch.device("cuda"))
+    model, _ns = build_model(solid, cell, torch.device("cuda"))
     state, pads, k1 = allocate(solid.shape, "cuda")
     first = 0
     checkpoint = out / "checkpoint.h5"
@@ -315,7 +316,7 @@ def main():
 
     def diagnostics(step, elapsed, p_error, r_error):
         assert all(torch.isfinite(s).all().item() for s in state), "Non-finite solver state"
-        u, v, w, p = state
+        u, v, w, _p = state
         speed = torch.sqrt(u.square() + v.square() + w.square())[0, 0]
         div = (
             model.xadv(model.boundary_condition_u(u, pads[0]))

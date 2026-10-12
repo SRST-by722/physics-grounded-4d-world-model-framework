@@ -4,8 +4,8 @@ import argparse
 import gzip
 import hashlib
 import json
-from pathlib import Path
 import struct
+from pathlib import Path
 
 from build_city_publication import digest
 

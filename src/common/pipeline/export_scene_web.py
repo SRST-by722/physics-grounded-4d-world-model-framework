@@ -22,7 +22,6 @@ if __name__ == "__main__" and not __package__:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from common.locations import code_path
 import argparse
 import glob
 import json
@@ -35,8 +34,9 @@ from pathlib import Path
 
 import numpy as np
 
-from urban_geometry.voxelization.glb_plan import read_glb_header
+from common.locations import code_path
 from common.pipeline.run_scene import load_config, read_json, rel
+from urban_geometry.voxelization.glb_plan import read_glb_header
 
 
 def main():
@@ -57,7 +57,7 @@ def main():
     (web / "models").mkdir(parents=True, exist_ok=True)
     out.mkdir(parents=True, exist_ok=True)
     meta = json.loads((G / "metadata.json").read_text())
-    nz, ny, nx = meta["shape_zyx"]
+    _nz, ny, nx = meta["shape_zyx"]
     ox, oy, _ = meta["source_region_origin_xyz_m"]
     step_s = float(cfg["wind"]["step_seconds"])
 
@@ -104,7 +104,7 @@ def main():
         np.save(path, arr)
         man["arrays"][relpath] = {"shape": list(arr.shape), "dtype": str(arr.dtype), **info}
         print(
-            f"{relpath:50s} {str(arr.dtype):8s} {arr.shape} {path.stat().st_size / 1e6:7.1f} MB",
+            f"{relpath:50s} {arr.dtype!s:8s} {arr.shape} {path.stat().st_size / 1e6:7.1f} MB",
             flush=True,
         )
 
@@ -346,9 +346,10 @@ def main():
         }
         phase_order.append("solar")
         man["exported_stages"].append("solar")
+        assumed = scfg["assumptions"]
         man["limits"].append(
-            "Sunlight: assumed latitude %.4f / longitude %.4f and north = local +y."
-            % (scfg["assumptions"]["latitude_deg"], scfg["assumptions"]["longitude_deg"])
+            f"Sunlight: assumed latitude {assumed['latitude_deg']:.4f} / longitude "
+            f"{assumed['longitude_deg']:.4f} and north = local +y."
         )
 
     # ---- flood
@@ -373,8 +374,9 @@ def main():
             time_s=time_s,
             rain_mm_h=rain,
             max_depth_m=[round(s["max_depth_m"], 3) for s in series][: len(files)],
-            note="semi-implicit shallow-water solver on the GLB ground mesh (not surveyed terrain); design storm %s mm/h per 15 min, sewer %s mm/h"
-            % (rain15, fcfg["flood"]["sewer_mm_h"]),
+            note="semi-implicit shallow-water solver on the GLB ground mesh (not surveyed "
+            f"terrain); design storm {rain15} mm/h per 15 min, sewer "
+            f"{fcfg['flood']['sewer_mm_h']} mm/h",
         )
         max_name = f"flood/max_depth_{cell}m_yx.npy"
         save(

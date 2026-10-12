@@ -9,19 +9,20 @@ if __name__ == "__main__" and not __package__:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-import numpy as np
-import torch
 import sys
 
+import numpy as np
+import torch
+
 from traffic.configs.default import (
-    GRID_SIZE,
     CELL_SIZE,
-    MAX_SPEED,
     DT,
+    GRID_SIZE,
+    HIST_STEPS,
+    MAX_SPEED,
+    PRED_STEPS,
     TOTAL_FEAT_DIM,
     VEHICLE_DIM,
-    HIST_STEPS,
-    PRED_STEPS,
 )
 
 LEFT_HAND = False  # Left Travel Switch: True=Left Travel, False=Right Travel
@@ -224,7 +225,7 @@ def _detect_intersections(roads):
     result = []
     for g in groups:
         center = (np.mean([p[0] for p in g]), np.mean([p[1] for p in g]))
-        involved = tuple(sorted(set(idx for p in g for idx in (p[2], p[3]))))
+        involved = tuple(sorted({idx for p in g for idx in (p[2], p[3])}))
         is_double_endpoint = True
         for p in g:
             for idx in (p[2], p[3]):
@@ -386,8 +387,7 @@ def _dest_to_road_dist(dest, centerline):
     best = float("inf")
     for i in range(len(centerline) - 1):
         d, _ = _point_segment_dist(dest, centerline[i], centerline[i + 1])
-        if d < best:
-            best = d
+        best = min(best, d)
     return best
 
 
@@ -496,9 +496,6 @@ def simulate_trajectory(total_steps=70, seed=None):
                 continue
             poly = _road_path(roads, v["road"], v["direction"])
             center, tangent, normal = _poly_interp(poly, v["wp_idx"])
-
-            move_dr = tangent[0]
-            move_dc = tangent[1]
 
             # Traffic light
             red = False

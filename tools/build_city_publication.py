@@ -4,8 +4,8 @@ import argparse
 import gzip
 import hashlib
 import json
-from pathlib import Path
 import shutil
+from pathlib import Path
 
 import numpy as np
 
@@ -27,9 +27,11 @@ def chunks(source, destination, size):
         while block := stream.read(size):
             path = destination / f"{len(parts):04d}.gz"
             path.parent.mkdir(parents=True, exist_ok=True)
-            with path.open("wb") as output:
-                with gzip.GzipFile(filename="", fileobj=output, mode="wb", mtime=0) as compressed:
-                    compressed.write(block)
+            with (
+                path.open("wb") as output,
+                gzip.GzipFile(filename="", fileobj=output, mode="wb", mtime=0) as compressed,
+            ):
+                compressed.write(block)
             parts.append(
                 {
                     "file": path.name,

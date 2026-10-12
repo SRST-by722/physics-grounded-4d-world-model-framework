@@ -8,13 +8,12 @@ factor) and ground-reflected parts. Sky-view factor and horizon come once from H
 Usage: python run_core008_solar.py [--dates 2026-06-21,2026-12-21] [--minutes 10] [--out output/core008/physics/scaled_latent/solar]
 """
 
-from pathlib import Path as _UwmPath
 import sys as _uwm_sys
+from pathlib import Path as _UwmPath
 
 _uwm_sys.path.insert(
     0, str(next(p for p in _UwmPath(__file__).resolve().parents if (p / "common").is_dir()))
 )
-from common.layout import repo_root
 import argparse
 import json
 import math
@@ -25,8 +24,10 @@ from pathlib import Path
 import numpy as np
 import torch
 
+from common.layout import repo_root
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from solar_np import ShadowNet, HorizonNet, sun_position, clear_sky  # noqa: E402
+from solar_np import HorizonNet, ShadowNet, clear_sky, sun_position
 
 ROOT = repo_root()
 TERRAIN = ROOT / "output/core008/physics/scaled_latent/flood/terrain"
@@ -71,7 +72,7 @@ def main():
     a = ap.parse_args()
     out = Path(a.out) if a.out else ROOT / "output/core008/physics/scaled_latent/solar"
     out.mkdir(parents=True, exist_ok=True)
-    fh = open(out / "run.log", "a")
+    fh = open(out / "run.log", "a")  # noqa: SIM115 - closed at the end of main
     dev = torch.device("cuda")
     t0 = time.time()
 
@@ -132,7 +133,6 @@ def main():
             )
         )
         log(fh, f"svf done in {time.time() - ts:.0f} s: ground mean {float(svf[g].mean()):.3f}")
-    svf4 = svf.reshape(ny // 4, 4, nx // 4, 4).mean(dim=(1, 3))
     foot_t = torch.as_tensor(foot, device=dev)
 
     for date in a.dates.split(","):
@@ -149,7 +149,6 @@ def main():
         energy_direct = torch.zeros((ny, nx), device=dev)
         frames = []
         ghi4 = []
-        shadow_frac = []
         for hu in hours_utc:
             alt, az = sun_position(lat, lon, y, m, d, float(hu))
             if alt <= 0:
@@ -179,7 +178,7 @@ def main():
             )
             if a.hourly_1m and abs(local - round(local)) < 1e-6:
                 np.save(
-                    ddir / "ghi_1m_hourly" / f"ghi_{int(round(local)):02d}00_float16.npy",
+                    ddir / "ghi_1m_hourly" / f"ghi_{round(local):02d}00_float16.npy",
                     ghi.cpu().numpy().astype(np.float16),
                 )
             g = ~foot_t
@@ -188,7 +187,7 @@ def main():
                 {
                     "index": k,
                     "hour_utc": round(float(hu), 4),
-                    "local_time": f"{int(local):02d}:{int(round((local % 1) * 60)):02d}",
+                    "local_time": f"{int(local):02d}:{round((local % 1) * 60):02d}",
                     "altitude_deg": alt,
                     "azimuth_deg": az,
                     "dni_w_m2": dni,

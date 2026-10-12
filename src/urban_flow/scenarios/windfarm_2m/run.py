@@ -9,12 +9,18 @@ if __name__ == "__main__" and not __package__:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from common.runtime import source_path, trial_root
-import argparse, json, math, time, traceback
+import argparse
+import json
+import math
+import time
+import traceback
 from pathlib import Path
+
+import h5py
 import numpy as np
 import torch
-import h5py
+
+from common.runtime import source_path, trial_root
 
 
 def write(path, data):
@@ -33,7 +39,6 @@ def main():
     a = p.parse_args()
     from urban_flow.solvers.mac_triton import MAC
 
-    root = Path.cwd()
     geom = source_path("legacy_output", "region_crop_2m/geometry")
     out = trial_root("windfarm", "mac_2m")
     web = out / "export"

@@ -4,6 +4,8 @@ Dimensions/individual-node style correspondence remain partly estimated.
 """
 
 import math
+from itertools import pairwise
+
 from detailed_common import BuildingContext
 
 EXHIBITION_IDS = {"node-8014230168", "node-8014230169", "node-8014230170"}
@@ -42,7 +44,7 @@ def build(collection, records):
                 ]
                 for h, rad in levels
             ]
-            for a, b in zip(rings, rings[1:]):
+            for a, b in pairwise(rings):
                 for k in range(n):
                     m.face([a[k], a[(k + 1) % n], b[(k + 1) % n], b[k]], mat)
             if cap:

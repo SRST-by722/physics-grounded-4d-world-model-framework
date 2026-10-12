@@ -4,10 +4,11 @@ import hashlib
 import json
 import os
 import re
-from pathlib import Path
 import shutil
-from datetime import datetime, timezone
-from .contract import validate, read_json
+from datetime import UTC, datetime
+from pathlib import Path
+
+from .contract import read_json, validate
 from .storage import identifier
 
 
@@ -90,7 +91,7 @@ def package_export(storage, source, config, run_id, source_snapshot=None, code_r
         "schema_version": "1.1.0",
         "scene_id": scene,
         "status": "complete",
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "provenance": provenance,
         "spatial": spatial,
     }
@@ -200,7 +201,7 @@ def package_export(storage, source, config, run_id, source_snapshot=None, code_r
             utc = info.get("time_utc")
             times = info.get("time_s")
             if times is None and utc:
-                parsed = [datetime.fromisoformat(t.replace("Z", "+00:00")) for t in utc]
+                parsed = [datetime.fromisoformat(t) for t in utc]
                 times = [(t - parsed[0]).total_seconds() for t in parsed]
             if times is None:
                 raise ValueError("Solar export is missing its time axis")

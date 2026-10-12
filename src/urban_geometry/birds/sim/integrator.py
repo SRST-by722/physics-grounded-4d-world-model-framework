@@ -2,41 +2,43 @@
 integrator.py = main simulation loop
 """
 
-import numpy as np
 import os
-from urban_geometry.birds.sim.neighbors import find_topological_neighbors, compute_blind_angle_mask
+
+import numpy as np
+
+from urban_geometry.birds.sim.config import (
+    AFFECT_GAINS,
+    FIELD_RESPONSE_GAIN,
+    FIELD_RESPONSES,
+    INDIVIDUAL_TRAITS,
+    WAVE_GUIDANCE_GAIN,
+    WIND_RESPONSE_GAIN,
+)
+from urban_geometry.birds.sim.environment import get_environment
+from urban_geometry.birds.sim.foraging import init_food_field, update_forage
 from urban_geometry.birds.sim.forces import (
-    compute_separation,
     compute_alignment,
-    compute_cohesion,
-    compute_roost_attraction,
-    compute_obstacle_avoidance,
     compute_centrality,
+    compute_cohesion,
     compute_field_speed_modulation,
+    compute_obstacle_avoidance,
+    compute_roost_attraction,
+    compute_separation,
     compute_wind_response,
 )
+from urban_geometry.birds.sim.neighbors import compute_blind_angle_mask, find_topological_neighbors
+from urban_geometry.birds.sim.predator import compute_predator_avoidance
+from urban_geometry.birds.sim.routing import compute_wave_guidance, get_arrival_time_field
+from urban_geometry.birds.sim.sites import get_site_heightmaps, sample_surface_height
 from urban_geometry.birds.sim.states import (
+    DESCENT,
+    FORAGE,
+    ROOST,
+    TRANSIT,
     get_state_params,
     update_states,
-    FORAGE,
-    TRANSIT,
-    DESCENT,
-    ROOST,
 )
-from urban_geometry.birds.sim.sites import get_site_heightmaps, sample_surface_height
 from urban_geometry.birds.sim.wind import get_wind
-from urban_geometry.birds.sim.environment import get_environment
-from urban_geometry.birds.sim.predator import compute_predator_avoidance
-from urban_geometry.birds.sim.config import (
-    INDIVIDUAL_TRAITS,
-    AFFECT_GAINS,
-    WIND_RESPONSE_GAIN,
-    FIELD_RESPONSES,
-    FIELD_RESPONSE_GAIN,
-    WAVE_GUIDANCE_GAIN,
-)
-from urban_geometry.birds.sim.routing import get_arrival_time_field, compute_wave_guidance
-from urban_geometry.birds.sim.foraging import update_forage, init_food_field
 from urban_geometry.birds.sim.world_gen import generate_world
 
 _geometry_cache = {}
@@ -454,7 +456,6 @@ def step(state, config, predator=None):
     # BERDAHL FIELD SPEED-MODULATION (orthokinesis)
     # modulate target speed by the local scalar fields each bird senses
     if env is not None:
-        wind_mag = np.linalg.norm(wind, axis=-1) / config.v_max  # |wind| normalized to ~0-1
         field_values = {
             "pollution": env["pollution"],
             "noise": env["noise"],
@@ -608,13 +609,15 @@ def step(state, config, predator=None):
 
     # per-bird roost surface height from heightmap (used for ROOST ground clamping)
     # computed once before sub-stepping, not per sub-step
+    # NOTE: roost_surface_z_arr is not read below, so no sub-step clamps ROOST birds to it.
     roost_hmaps = get_site_heightmaps(
         config, config.world["roosts"], geo_data, geo_data["grid_origin"]
     )
     if roost_hmaps:
         roost_surface_z_arr, _ = sample_surface_height(roost_hmaps, pos)
     else:
-        roost_surface_z_arr = np.full(N, 0.5)  # if no roosts, then ground level fallback
+        # if no roosts, then ground level fallback
+        roost_surface_z_arr = np.full(N, 0.5)  # noqa: F841
 
     # ROOST friction per sub-step = computed so total friction per dt is consistent regardless of how many sub-steps we use
     roost_friction_per_substep = 0.15 ** (

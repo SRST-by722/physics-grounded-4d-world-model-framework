@@ -5,8 +5,9 @@ if __name__ == "__main__" and not __package__:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from pathlib import Path
 import json
+from pathlib import Path
+
 import numpy as np
 
 
@@ -14,9 +15,11 @@ def main():
     import matplotlib
 
     matplotlib.use("Agg")
+    import argparse
+
     import matplotlib.pyplot as plt
     from matplotlib.animation import FuncAnimation, PillowWriter
-    import argparse
+
     from common.runtime import trial_root
 
     parser = argparse.ArgumentParser(description="Render a completed paper-rotor comparison")
@@ -37,7 +40,6 @@ def main():
         else trial_root("windfarm", "paper_rotor_render")
     )
     destination.mkdir(parents=True, exist_ok=True)
-    meta = json.loads((out / "comparison.json").read_text())
     a = np.load(out / "torch_paper.npz")
     b = np.load(out / "torch_legacy.npz")
     c = np.load(out / "triton_paper.npz")

@@ -1,11 +1,12 @@
 import gzip
 import importlib.util
 import json
-from pathlib import Path
 import tempfile
 import unittest
+from pathlib import Path
 
 import test_city_presentation
+
 from common.pipeline.package_city_preview import package
 
 SPEC = importlib.util.spec_from_file_location(

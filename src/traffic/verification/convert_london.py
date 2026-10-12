@@ -1,4 +1,6 @@
+from itertools import pairwise
 from pathlib import Path
+
 from common.layout import scene_input
 from common.runtime import trial_root
 
@@ -11,7 +13,8 @@ Clear instructions and objectives were provided to ensure all code modified by A
 """
 import json
 import sys
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
+
 import numpy as np
 
 CELL_SIZE = 3.0
@@ -34,7 +37,7 @@ def _dist(a, b):
 
 def _seg_length_m(seg, m_per_deg_lon):
     total = 0.0
-    for a, b in zip(seg, seg[1:]):
+    for a, b in pairwise(seg):
         dlon = (b[0] - a[0]) * m_per_deg_lon
         dlat = (b[1] - a[1]) * M_PER_DEG_LAT
         total += (dlon**2 + dlat**2) ** 0.5
@@ -95,7 +98,7 @@ def merge_segments(segments, threshold_deg=0.0002):
                     r = _try_extend(anchor, dir_away, s, threshold_deg)
                     if r is None:
                         continue
-                    ok, rev = r
+                    _ok, rev = r
                     d = _dist(anchor, s[-1] if rev else s[0])
                     if d < best_d:
                         best_j, best_d, best_rev = j, d, rev

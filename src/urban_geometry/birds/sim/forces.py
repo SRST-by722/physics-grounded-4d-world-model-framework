@@ -6,8 +6,9 @@ functions return (N, 3) array of force vectors for N birds
 
 import numpy as np
 from scipy.ndimage import distance_transform_edt, map_coordinates
-from urban_geometry.birds.sim.states import TRANSIT, MURMURATION, DESCENT
+
 from urban_geometry.birds.sim.sites import get_site_heightmaps, sample_surface_height
+from urban_geometry.birds.sim.states import DESCENT, MURMURATION, TRANSIT
 
 
 def compute_separation(
@@ -38,7 +39,6 @@ def compute_separation(
     Returns:
         force: (N, 3) array, separation force vectors
     """
-    N = neighbor_indices.shape[0]
 
     # halved Gaussian falloff (shared by both modes)
     sigma = (r_separation - r_hard_sphere) / np.sqrt(-np.log(separation_gaussian_floor))
@@ -63,7 +63,7 @@ def compute_separation(
     else:
         # H2010 = sum weighted repulsion over ALL topological neighbors within range
         # uses the SAME halved-Gaussian weight as single-neighbor mode, so the only difference under test is neighbor COUNT
-        N, k = neighbor_indices.shape
+        _N, _k = neighbor_indices.shape
         neighbor_pos = positions[neighbor_indices]  # (N, k, 3)
         away = positions[:, np.newaxis, :] - neighbor_pos  # (N, k, 3)
         away_unit = away / np.maximum(
@@ -394,9 +394,8 @@ def compute_obstacle_avoidance(
         force: (N, 3) array, avoidance force vectors
     """
 
-    N = positions.shape[0]
     origin = np.array(grid_origin)
-    gz, gy, gx = (
+    _gz, _gy, _gx = (
         geometry.shape
     )  # geometry is stored as (z, y, x) = (depth, height, width) following SCALED convention
 

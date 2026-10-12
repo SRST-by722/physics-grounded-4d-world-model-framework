@@ -3,16 +3,16 @@
 import hashlib
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
 import time
+from pathlib import Path
 
 import numpy as np
-from e2e_fixture import create_workspace
 from check_browser import chrome_path, viewer_server
+from e2e_fixture import create_workspace
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -26,7 +26,13 @@ def run_cli(workspace, output, *args, expected=0):
         log.write("\n$ " + " ".join(command) + "\n")
         log.flush()
         result = subprocess.run(
-            command, cwd=workspace, env=env, stdout=log, stderr=subprocess.STDOUT, timeout=90
+            command,
+            cwd=workspace,
+            env=env,
+            stdout=log,
+            stderr=subprocess.STDOUT,
+            timeout=90,
+            check=False,
         )
     if result.returncode != expected:
         raise RuntimeError(

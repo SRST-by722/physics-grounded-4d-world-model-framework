@@ -4,19 +4,21 @@ import argparse
 import hashlib
 import itertools
 import json
-from pathlib import Path
 import shutil
 import subprocess
 import tarfile
-from datetime import datetime, timezone
-from common.locations import code_path
+from datetime import UTC, datetime
+from itertools import pairwise
+from pathlib import Path
 
 import matplotlib
 
+from common.locations import code_path
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.collections import LineCollection
 import numpy as np
+from matplotlib.collections import LineCollection
 
 
 def dump(path, obj):
@@ -25,7 +27,7 @@ def dump(path, obj):
 
 def check_polyline(points, mask, spacing):
     """Independent NumPy grid-plane traversal including both sides of closed faces."""
-    for a, b in zip(points[:-1], points[1:]):
+    for a, b in pairwise(points):
         delta = b - a
         times = [0.0, 1.0]
         for axis in range(3):
@@ -142,7 +144,7 @@ def main():
             )
         )
         for s in stations:
-            x, y, z = s["gate_enu_m"]
+            x, y, _z = s["gate_enu_m"]
             ax.scatter(x, y, c=colors[s["role"]], s=26, zorder=4)
             ax.annotate(
                 s["label"], (x, y), xytext=(4, 3), textcoords="offset points", fontsize=7, zorder=5
@@ -189,7 +191,7 @@ def main():
             if r["source"] != s["label"]:
                 continue
             p = np.load(out / r["path"])
-            for a, b in zip(p[:-1], p[1:]):
+            for a, b in pairwise(p):
                 tangent = b[:2] - a[:2]
                 norm = np.linalg.norm(tangent)
                 side = (
@@ -336,7 +338,7 @@ def main():
         simulation="wavepde",
         run_id=run_id,
         status="complete",
-        created_at=datetime.now(timezone.utc).isoformat(),
+        created_at=datetime.now(UTC).isoformat(),
         provenance=dict(
             code_revision=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
             dirty=True,

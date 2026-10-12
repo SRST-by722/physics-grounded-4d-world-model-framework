@@ -2,10 +2,11 @@
 config.py = all simulation params (in SI units)
 """
 
-from common.layout import scene_input
-
 from dataclasses import dataclass, field
+
 import numpy as np
+
+from common.layout import scene_input
 
 # INDIVIDUAL TRAITS = spec for per-bird trait sampling i.e. creates individuals rather than clones
 # NOTE: currently avoiding traits that were tuned based on STARFLAG metrics to preserve behavior
@@ -142,7 +143,7 @@ class SimConfig:
 
     # WORLD LAYOUT
     # all spatial features e.g. roosts, roads, point sources of pollution/noise
-    geometry_path: str = None  # path to separate geometry .npz from glb_to_geo.py; None = use geometry from scaled_wind_path
+    # path to separate geometry .npz from glb_to_geo.py; None = use geometry from scaled_wind_path
     geometry_path: str = field(
         default_factory=lambda: str(scene_input("south_ken", "birds", "geometry.npz"))
     )

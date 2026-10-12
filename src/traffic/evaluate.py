@@ -5,27 +5,28 @@ if __name__ == "__main__" and not __package__:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import glob
+import os
+import sys
+
+import torch
+
 from common.layout import scene_input
 from common.runtime import trial_root
-import torch
-import sys
-import os
-import glob
-
 from traffic.configs.default import (
-    VEHICLE_DIM,
-    JACOBI_ITERS,
+    CELL_SIZE,
+    DT,
+    EVAL_SEED_OFFSET,
+    GRID_SIZE,
     HIST_STEPS,
+    JACOBI_ITERS,
     # Constant Velocity baseline
     MAX_SPEED,
-    DT,
-    CELL_SIZE,
     PRED_STEPS,
-    GRID_SIZE,
-    EVAL_SEED_OFFSET,
+    VEHICLE_DIM,
 )
-from traffic.models.particle_mlp import ParticleTrafficModel
 from traffic.data.generate_complex import generate_dataset
+from traffic.models.particle_mlp import ParticleTrafficModel
 
 
 def find_latest_model(date_filter=None):
@@ -280,11 +281,11 @@ if __name__ == "__main__":
     parser.add_argument("--model", "-m", type=str, default=None)
     args = parser.parse_args()
 
-    date_str = os.environ.get("LOG_DATE", datetime.now().strftime("%m-%d_%H-%M-%S"))
+    date_str = os.environ.get("LOG_DATE", datetime.now().astimezone().strftime("%m-%d_%H-%M-%S"))
     log_dir = trial_root("south_ken", "traffic_evaluation")
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = os.path.join(log_dir, f"eval_log_{date_str}.txt")
-    log_file = open(log_path, "w", buffering=1)
+    log_file = open(log_path, "w", buffering=1)  # noqa: SIM115 - run-long log
 
     def log(msg):
         print(msg)
