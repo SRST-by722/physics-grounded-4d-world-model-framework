@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.1.0",
+  "scene_id": "atrium_9845",
+  "simulation": "indoor_visualization",
+  "run_id": "atrium_9845_visual_v1",
+  "status": "complete",
+  "created_at": "2026-10-16T13:11:38Z",
+  "provenance": {
+    "code_revision": "d05964403f9f107c337ee01047bde649c0209948",
+    "dirty": true,
+    "parameters": {
+      "operation": "byte-preserving import of the previously shared visual derivative",
+      "litereality_revision": "28ffe1fd4a1b03c93f1877a33a8bc9b806f72fe1",
+      "source_glb_sha256": "19b41a8adf1625f23f90271305daa111611a85f2cf49c14a69fbc9335d34d4dc",
+      "appearance": "User accepted the 6.8/10 visual result on 2026-10-16",
+      "physics": "Not accepted: initial overlap check failed; shake test incomplete",
+      "registration": "Room-local only; building link does not establish a room-to-city transform",
+      "animation_semantics": "Interactive open/close presentation; independent of city simulation time",
+      "reproducibility": "Importer snapshot reproduces packaging, not the original reconstruction"
+    },
+    "inputs": [
+      {
+        "id": "accepted_compressed_atrium_glb",
+        "sha256": "909866d9caffcce6c262d2b9e4108307ad396799197732c4721e37f93197d9a7"
+      }
+    ]
+  },
+  "spatial": {
+    "frame": "ENU",
+    "units": "m",
+    "georeferenced": false,
+    "origin": {
+      "longitude": 0,
+      "latitude": 0,
+      "height_m": 0,
+      "vertical_datum": "Unregistered scan-local frame, not surveyed elevation"
+    },
+    "bounds_m": {
+      "min": [-4.505537528935692, -0.768608033657074, -1.3894000053405762],
+      "max": [1.385608196258545, 4.3899078369140625, 1.3106999639421701]
+    }
+  },
+  "time": {
+    "unit": "s",
+    "samples": []
+  },
+  "layers": [
+    {
+      "id": "room",
+      "kind": "mesh",
+      "format": "glb",
+      "asset": "atrium.glb",
+      "sampling": "static",
+      "encoding": {
+        "coordinate_frame": "glTF-y-up"
+      },
+      "display": {
+        "widget": "mesh",
+        "capabilities": ["pick", "opacity"]
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "source_snapshot",
+      "asset": "source_snapshot.py",
+      "sha256": "bef4f48fbdab56bd7774b14f546e5f975261636101d4ceeb985a865537b5b8f7",
+      "media_type": "text/x-python"
+    }
+  ]
+}

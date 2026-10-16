@@ -106,6 +106,26 @@ class RegistryServerTests(unittest.TestCase):
         with urllib.request.urlopen(base + "/project/index.json") as response:
             self.assertEqual(json.load(response), {"default": None, "scenes": []})
 
+    def test_selected_preview_mount_rejects_escaping_symlinks(self):
+        preview = self.storage.metadata("south_ken") / "previews/room_v1"
+        preview.mkdir(parents=True)
+        (preview / "manifest.json").write_text('{"fixture":true}')
+        outside = Path(self.tmp.name) / "private.txt"
+        outside.write_text("outside fixture")
+        (preview / "escape.txt").symlink_to(outside)
+        server = ThreadingHTTPServer(
+            ("127.0.0.1", 0), functools.partial(ViewerHandler, storage=self.storage)
+        )
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        self.addCleanup(server.server_close)
+        self.addCleanup(server.shutdown)
+        base = f"http://127.0.0.1:{server.server_port}/project/south_ken/previews/room_v1"
+        with urllib.request.urlopen(base + "/manifest.json") as response:
+            self.assertEqual(json.load(response), {"fixture": True})
+        with self.assertRaises(urllib.error.HTTPError) as error:
+            urllib.request.urlopen(base + "/escape.txt")
+        self.assertEqual(error.exception.code, 400)
+
     def test_directory_index_symlink_cannot_escape_run(self):
         run = self.storage.run("south_ken", "synthetic_v1")
         outside = Path(self.tmp.name) / "outside.html"

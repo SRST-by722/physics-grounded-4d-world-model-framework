@@ -1,0 +1,1 @@
+Interactive GLB articulation is adapted from LiteReality/LiteReality-Agent viewer, commit 28ffe1fd4a1b03c93f1877a33a8bc9b806f72fe1, Apache-2.0. Copyright and license retained in indoor-LICENSE.txt. Modifications: shared renderer integration, disposal, input handling and single-visible-hit selection. The software license does not license user-provided scene content.

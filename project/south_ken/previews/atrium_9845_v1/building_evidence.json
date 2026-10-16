@@ -1,0 +1,279 @@
+{
+  "verified_on": "2026-10-16",
+  "model_sha256": "b50716ff233ee6bd929dc23ac7e10360495fd484d5c32ee5180a6f54933034bd",
+  "model_bytes": 254723368,
+  "model_source": "https://acse-yl222.github.io/urban-world-model-models/project/south_ken/geometry/models_v1/manifest.json",
+  "building_id": "way-110085215",
+  "matching_model_nodes": [
+    {
+      "index": 6742,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | 156cm clear e",
+      "building_id": "way-110085215",
+      "geometry_evidence": "1.56m first double door reported by AccessAble; heights/frames estimated"
+    },
+    {
+      "index": 6743,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Deep semicirc",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Circular4m niche and quarter-sphere coffering, three arched clerestories; dimensions visually estimated"
+    },
+    {
+      "index": 6744,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Ionic orders ",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Ionic capitals volutes bases and rustication interpreted from inspected2020 central photograph"
+    },
+    {
+      "index": 6745,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Mapped differ",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Mapped plan-clipped north slopes and central roof; eastern/rear details estimated from aerial, not survey"
+    },
+    {
+      "index": 6746,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Mapped floor ",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original mapped floor boundaries, local full-height entrance void; no shifted or globally scaled footprint"
+    },
+    {
+      "index": 6747,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Nine entrance",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Nine steps documented by AccessAble text; .16m rise/.32m tread estimates relative to pavement, not surveyed"
+    },
+    {
+      "index": 6748,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | North and Exh",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Photo-backed northern and Exhibition Road classical envelopes; masonry sizes visually estimated"
+    },
+    {
+      "index": 6749,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6750,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved ori",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6751,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.001",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6752,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.002",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6753,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.003",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6754,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.004",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6755,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.005",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6756,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.006",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6757,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.007",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6758,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.008",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6759,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.009",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6760,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.010",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6761,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.011",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6762,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.012",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6763,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.013",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6764,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.014",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6765,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | preserved.015",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Original interpretive sculpture/ornament, rigid campus transfer only; not scan"
+    },
+    {
+      "index": 6766,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Projecting co",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Projecting modillions cornices and blind attic; preserved sculptures loaded separately"
+    },
+    {
+      "index": 6767,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Recessed hist",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Actual inset frames glass/transoms/pediments and balustrades; windows are 3D, counts outside north estimated"
+    },
+    {
+      "index": 6768,
+      "name": "Royal School of Mines / Aston Webb / Goldsmiths | Unverified re",
+      "building_id": "way-110085215",
+      "geometry_evidence": "Unseen rear is low-confidence completion; shared lower interfaces owned by neighbours, not claimed fire-rated walls"
+    }
+  ],
+  "osm_source": "https://www.openstreetmap.org/way/110085215",
+  "osm_attribution": "OpenStreetMap contributors, ODbL",
+  "osm_preserved_record": {
+    "type": "way",
+    "id": 110085215,
+    "bounds": {
+      "minlat": 51.4994592,
+      "minlon": -0.1766782,
+      "maxlat": 51.4998884,
+      "maxlon": -0.1745883
+    },
+    "nodes": [
+      1258483037, 1258483004, 6037519322, 6037519324, 1258483235, 6037519326, 1258483083,
+      6037519327, 6037519328, 6037519329, 1258483119, 4724062976, 1258483037
+    ],
+    "geometry": [
+      {
+        "lat": 51.4998884,
+        "lon": -0.1746807
+      },
+      {
+        "lat": 51.4994939,
+        "lon": -0.1745883
+      },
+      {
+        "lat": 51.4994629,
+        "lon": -0.174928
+      },
+      {
+        "lat": 51.4994592,
+        "lon": -0.1749759
+      },
+      {
+        "lat": 51.4996758,
+        "lon": -0.1750199
+      },
+      {
+        "lat": 51.4996352,
+        "lon": -0.1755355
+      },
+      {
+        "lat": 51.4996306,
+        "lon": -0.1755921
+      },
+      {
+        "lat": 51.4996771,
+        "lon": -0.1756016
+      },
+      {
+        "lat": 51.4996144,
+        "lon": -0.1763885
+      },
+      {
+        "lat": 51.499648,
+        "lon": -0.1763954
+      },
+      {
+        "lat": 51.4996317,
+        "lon": -0.176659
+      },
+      {
+        "lat": 51.4997301,
+        "lon": -0.1766782
+      },
+      {
+        "lat": 51.4998884,
+        "lon": -0.1746807
+      }
+    ],
+    "tags": {
+      "addr:city": "London",
+      "addr:housename": "Goldsmiths Building",
+      "addr:postcode": "SW7 2BP",
+      "addr:street": "Prince Consort Road",
+      "building": "university",
+      "building:levels": "3",
+      "name": "Royal School of Mines",
+      "ref:GB:uprn": "10033541636",
+      "roof:levels": "1",
+      "roof:shape": "quadruple_saltbox",
+      "wikidata": "Q1508631",
+      "wikipedia": "en:Royal School of Mines"
+    }
+  },
+  "official_address_source": "https://www.imperial.ac.uk/earth-science/about/contact-us/",
+  "official_address": "Royal School of Mines, Prince Consort Road, SW7 2BP",
+  "coordinate_note": "Legacy core008 uses EPSG:32630 offset (695238.304719173, 5709236.965026026); its origin is lon -0.187, lat 51.5005. project/south_ken/project.json declares a different origin (-0.176896, 51.498354). No automatic transform between these is assumed.",
+  "room_registration": "Building confirmed; room number, floor elevation, horizontal offset and heading unknown.",
+  "osm_footprint_gltf_xz_m": [
+    [857.5009, 35.0538],
+    [865.607, 78.6678],
+    [842.1667, 83.0249],
+    [838.8586, 83.5647],
+    [834.8753, 59.6004],
+    [799.2699, 65.496],
+    [795.3619, 66.1591],
+    [794.503, 61.0146],
+    [740.1657, 70.0938],
+    [739.5427, 66.3765],
+    [721.3203, 68.8948],
+    [719.5657, 58.0058],
+    [857.5009, 35.0538]
+  ],
+  "osm_footprint_gltf_xz_bounds_m": [
+    [719.5656951480778, 35.05381741002202],
+    [865.6069710347801, 83.56469329167157]
+  ],
+  "alignment_check": "OSM footprint projected using the preserved UTM offset; compared against the RSM GLB asset bounds. No room transform inferred."
+}

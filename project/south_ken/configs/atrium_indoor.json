@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "scene_id": "south_ken",
+  "room_id": "atrium_9845",
+  "title": "Royal School of Mines \u00b7 Atrium",
+  "building": {
+    "id": "way-110085215",
+    "model_label": "Royal School of Mines / Aston Webb / Goldsmiths",
+    "bounds_gltf_m": [
+      [717.92, 0.14, 33.84],
+      [866.68, 24.01, 88.26]
+    ],
+    "frame": "legacy core008 glTF: x east, y up, z south",
+    "projected_crs": "EPSG:32630",
+    "projected_origin_easting_northing_m": [695238.304719173, 5709236.965026026],
+    "approximate_building_center_lon_lat": [-0.17563331895, 51.49967754556],
+    "evidence": "../previews/atrium_9845_v1/building_evidence.json"
+  },
+  "registration": {
+    "status": "building_verified_room_unregistered",
+    "floor_label": "Fourth floor",
+    "floor_status": "Tentative user report; no floor plan or room number supplied",
+    "room_to_city": null,
+    "note": "The portal opens a room-local view. No surveyed position, heading or floor elevation is claimed."
+  },
+  "manifest": "project/south_ken/previews/atrium_9845_v1/manifest.json",
+  "asset_sha256": "909866d9caffcce6c262d2b9e4108307ad396799197732c4721e37f93197d9a7",
+  "published_room_url": "https://atrium-9845-explore.bohanye2022.chatgpt.site/",
+  "animation_ranges_seconds": {
+    "drawer_1_slide": [0.0416666679084301, 2.2916667461395264],
+    "drawer_2_slide": [0.0416666679084301, 1.7916666269302368],
+    "drawer_3_slide": [0.0416666679084301, 1.2916666269302368],
+    "tambour_shutter_swing": [0.0416666679084301, 1.2916666269302368],
+    "Drawer_Front_1_slide": [0.0416666679084301, 1.2916666269302368],
+    "Drawer_Front_2_slide": [0.0416666679084301, 1.7083333730697632],
+    "Drawer_Front_3_slide": [0.0416666679084301, 2.125],
+    "Door_Leaf_swing": [0.0416666679084301, 1.5416666269302368],
+    "Sash_Casement_Left_swing": [0.0416666679084301, 1.5416666269302368],
+    "sash_casement_swing": [0.0416666679084301, 1.5416666269302368]
+  },
+  "animation_range_note": "Source clips contain open-and-close cycles; several have an inconsistent pose at t=0. All parts have their closed pose at frame 1 (1/24 s). The preview scrubs from that pose to the first maximum excursion, then reverses on the next click. Source GLB bytes remain unchanged."
+}

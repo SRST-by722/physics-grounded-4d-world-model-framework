@@ -1,0 +1,4 @@
+Viewer adapted from LiteReality/LiteReality-Agent at commit 28ffe1fd4a1b03c93f1877a33a8bc9b806f72fe1, Apache-2.0.
+Original viewer attribution retained in app.js. Local additions: share/fullscreen controls, responsive presentation, loading/error text.
+Three.js r168 and its Draco loader are loaded from jsDelivr. Three.js uses the MIT license.
+The software licenses do not license the user-provided scene content.

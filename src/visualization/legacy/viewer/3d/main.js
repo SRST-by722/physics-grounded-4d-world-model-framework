@@ -35,6 +35,23 @@ import { recordedFrame } from '../scene-run.js';
 // the masks, the field layers (files, frame counts, clocks, display ranges) and the camera focus. South Kensington also
 // switches on the traffic / UAV / bird replay, the station tile, the OSM supplement and the building refinements.
 const SCENE = await loadScene();
+// Opt-in indoor review: reuse the original city geometry without starting its
+// independent field/replay clocks. The ordinary city URL is unchanged.
+const indoorPreview =
+  SCENE.id === 'south_kensington' &&
+  new URLSearchParams(location.search).get('indoor') === 'atrium_9845';
+if (indoorPreview) {
+  SCENE.layers = {};
+  SCENE.masks = {};
+  SCENE.phase_order = [];
+  SCENE.replay = null;
+  SCENE.traffic = null;
+  SCENE.transport = null;
+  SCENE.model = { ...SCENE.model, expansion: false, supplement: null, tile: null };
+  SCENE.protocol_display = { strict_time: false };
+  document.body.classList.add('indoor-preview');
+}
+let indoorPortal = null;
 setDataBase(SCENE.physics, SCENE.protocol_display?.npy_transport);
 document.title = `${SCENE.title} · 3D`;
 // Lite mode: phones, tablets and low-memory machines get a proxy city extruded from the voxel masks instead of the
@@ -1057,6 +1074,7 @@ async function loadStep(step) {
   }
 }
 async function loadStepInner(step) {
+  if (indoorPreview) return; // Geometry-only view has no environmental time samples.
   const token = ++state.token,
     fi = frameIndex(step);
   if (SCENE.protocol_display?.strict_time) {
@@ -2070,6 +2088,16 @@ function animate(now) {
   const elapsed = Math.max(0, now - last);
   const dt = Math.min(0.05, elapsed / 1000);
   last = now;
+  if (indoorPortal?.active) {
+    indoorPortal.tick(dt);
+    if (controls.enabled) controls.update();
+    if (renderDirty) {
+      renderer.render(scene, camera);
+      performanceStats.renders++;
+      renderDirty = false;
+    }
+    return;
+  }
   if (flight && section === 'campus' && replayLayer && !replayLayer.playing) flight.t0 += elapsed;
   const moving = Boolean(
     (uavLayer?.group.visible && uavLayer.playing) ||
@@ -2686,3 +2714,43 @@ document.addEventListener('visibilitychange', () => {
   invalidate();
 });
 await boot();
+if (indoorPreview) {
+  const projectRoot = new URL(
+    ROOT.endsWith('/src/visualization/legacy/') ? '../../../' : './',
+    ROOT,
+  );
+  const { createIndoorPortal } = await import(
+    new URL('src/visualization/shared/indoor-portal.mjs', projectRoot)
+  );
+  const pauseCity = () => {
+    ui.auto.checked = false;
+    // This opt-in view has no environmental phases/rates to schedule.
+    state.playing = false;
+    clearInterval(state.timer);
+    state.timer = null;
+    ui.play.textContent = '▶';
+    flight = null;
+    tour.active = false;
+    section = 'free';
+    controls.enabled = true;
+    replayLayer?.stopShots();
+    if (replayLayer) replayLayer.playing = false;
+    if (traffic) traffic.playing = false;
+    setSectionUI();
+    ui.stage.textContent = 'Royal School of Mines · linked indoor scene';
+    ui.info.textContent = 'Prince Consort Road · building way-110085215';
+    invalidate();
+  };
+  try {
+    indoorPortal = await createIndoorPortal(
+      { scene, camera, controls, renderer, invalidate, pauseCity },
+      new URL('project/south_ken/configs/atrium_indoor.json', projectRoot),
+      projectRoot,
+    );
+    window.viewer.indoor = indoorPortal;
+    indoorPortal.locate();
+  } catch (error) {
+    ui.stage.textContent = `Indoor scene unavailable: ${error.message}`;
+    console.error(error);
+  }
+}

@@ -128,6 +128,7 @@ class ViewerHandler(BaseHTTPRequestHandler):
                     "project.json",
                     "configs",
                     "views",
+                    "previews",
                 ):
                     raise ValueError("Unknown project category")
                 base = (

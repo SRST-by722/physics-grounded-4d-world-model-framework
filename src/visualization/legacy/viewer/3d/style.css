@@ -605,3 +605,71 @@ button:disabled {
 .info:empty {
   display: none;
 }
+/* Optional building-linked interior; the ordinary city route keeps its UI. */
+.indoor-panel {
+  position: fixed;
+  left: 20px;
+  bottom: 28px;
+  z-index: 30;
+  width: min(360px, calc(100vw - 64px));
+  padding: 18px;
+  color: #edf7f5;
+  background: #152629ed;
+  border: 1px solid #5d938c;
+  border-radius: 12px;
+  font:
+    14px/1.45 system-ui,
+    sans-serif;
+  box-shadow: 0 8px 32px #0005;
+}
+.indoor-panel strong {
+  font-size: 18px;
+}
+.indoor-panel p {
+  margin: 10px 0;
+}
+.indoor-panel .indoor-help {
+  color: #c8d9d6;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.indoor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.indoor-panel button {
+  padding: 9px 12px;
+  color: #102c2b;
+  background: #89e1d2;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+}
+.indoor-panel button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.indoor-panel button[hidden] {
+  display: none;
+}
+.indoor-active .hud,
+.indoor-active #readout,
+.indoor-preview #tabs,
+.indoor-preview #panel-toggle,
+.indoor-preview #layers,
+.indoor-preview .bottom {
+  display: none !important;
+}
+@media (max-width: 600px) {
+  .indoor-panel {
+    left: 12px;
+    bottom: 12px;
+    padding: 12px;
+    width: calc(100vw - 50px);
+  }
+  .indoor-panel .indoor-help {
+    font-size: 11px;
+  }
+}

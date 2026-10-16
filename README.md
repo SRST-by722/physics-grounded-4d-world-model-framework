@@ -47,6 +47,11 @@ Current applications span urban environments, wind farms and rotor experiments. 
 
 Published scenes currently use their existing specialized viewers. The unified viewer supports protocol-based layers and local scene views; migration progress and validation scope are tracked in the [implementation status](docs/framework/implementation-status.md).
 
+This branch also includes an [RSM indoor preview](docs/framework/rsm-indoor.md):
+locate the Royal School of Mines in South Kensington, enter the interactive
+Atrium reconstruction, and return to the city. The building is identified;
+the room's exact position and fourth-floor placement remain unregistered.
+
 ## Requirements
 
 - **Python 3.11+** for the framework CLI, validation and local server.

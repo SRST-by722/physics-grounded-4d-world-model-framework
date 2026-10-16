@@ -90,6 +90,13 @@ def main():
         shutil.copy2(ROOT / config, target / config)
         routes = Path(f"project/{scene}/input/uav_routes_ground_20261007")
         shutil.copytree(ROOT / routes, target / routes, dirs_exist_ok=True)
+    # Only the explicitly selected, already shared Atrium visual derivative.
+    # No scan TAR, photographs, private configuration or failed simulation data.
+    config = Path("project/south_ken/configs/atrium_indoor.json")
+    (target / config).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / config, target / config)
+    preview = Path("project/south_ken/previews/atrium_9845_v1")
+    shutil.copytree(ROOT / preview, target / preview, dirs_exist_ok=True)
     print(f"Built public viewer at {target}; existing legacy routes preserved.")
 
 
