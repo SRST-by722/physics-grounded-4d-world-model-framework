@@ -57,9 +57,9 @@ export async function createIndoorPortal(context, configURL, projectRoot) {
   const status = panel.querySelector('.indoor-status'),
     help = panel.querySelector('.indoor-help');
   const button = (name) => panel.querySelector(`[data-action="${name}"]`);
-  status.textContent = 'Atrium 9845 · reported fourth floor';
+  status.textContent = 'Atrium 9845 · interactive indoor scene';
   help.textContent =
-    'Building identified. Room position, heading and floor height are not yet surveyed.';
+    'Explore the city, then enter Atrium to look around the room and try its moving parts.';
   const oldCursor = canvas.style.cursor;
 
   function locate() {
@@ -190,9 +190,9 @@ export async function createIndoorPortal(context, configURL, projectRoot) {
       document.body.classList.add('indoor-active');
       button('locate').hidden = button('enter').hidden = true;
       button('reset').hidden = button('exit').hidden = false;
-      status.textContent = 'Atrium 9845 · room-local view';
+      status.textContent = 'Atrium 9845 · indoors';
       help.textContent =
-        'Drag to orbit · scroll to zoom · click drawers, doors and windows. Exact placement within RSM is pending.';
+        'Drag to orbit · scroll to zoom · click drawers, doors and windows. Use Back to city to return outside.';
       frameRoom();
     } catch (error) {
       if (!disposed) {
@@ -227,9 +227,9 @@ export async function createIndoorPortal(context, configURL, projectRoot) {
     document.body.classList.remove('indoor-active');
     button('locate').hidden = button('enter').hidden = false;
     button('reset').hidden = button('exit').hidden = true;
-    status.textContent = 'Atrium 9845 · reported fourth floor';
+    status.textContent = 'Atrium 9845 · interactive indoor scene';
     help.textContent =
-      'Building identified. Room position, heading and floor height are not yet surveyed.';
+      'Explore the city, then enter Atrium to look around the room and try its moving parts.';
     canvas.style.cursor = oldCursor;
     invalidate();
   }

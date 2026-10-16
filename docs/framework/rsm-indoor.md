@@ -48,7 +48,9 @@ Its RSM model bounds are `(717.92, 0.14, 33.84)` to
 **The room is not spatially registered within this building.** The user's
 fourth-floor description is tentative. The room number, wing, floor elevation,
 horizontal offset and heading are unknown. `room_to_city` is explicitly null.
-Entering switches to a clearly labelled room-local view and hides the city;
+The user confirmed that a building-to-room viewing transition is the intended
+scope; precise room registration is not a delivery requirement.
+Entering switches to the indoor view and hides the city;
 the room is not arbitrarily placed inside the exterior shell.
 
 Also, `project/south_ken/project.json` currently declares a different geographic
