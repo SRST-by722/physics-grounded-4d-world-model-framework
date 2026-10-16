@@ -2352,7 +2352,10 @@ async function boot() {
     }
   } else {
     await new Promise((resolve, reject) => {
-      if (MODEL.parts_manifest && (ON_PAGES || SCENE.protocol_display?.published))
+      if (
+        MODEL.parts_manifest &&
+        (ON_PAGES || MODEL.prefer_parts || SCENE.protocol_display?.published)
+      )
         fetchCityModel(MODEL.parts_manifest, onCityProgress)
           .then((buf) => loader.parse(buf, '', (gltf) => onCity(gltf, resolve), reject))
           .catch(reject); // GitHub Pages: parts from the models repository

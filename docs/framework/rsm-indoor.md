@@ -97,6 +97,25 @@ vendored runtime (MIT); SHA-256
 Articulation logic is adapted from LiteReality-Agent under Apache-2.0; see
 `src/visualization/shared/indoor-NOTICE.txt` and `indoor-LICENSE.txt`.
 
+## Separate static preview
+
+Package this branch into a separate, empty output directory without changing
+the existing Pages checkout or its assets:
+
+```sh
+python tools/build_indoor_site.py /absolute/path/to/new-site/dist \
+  --scene /absolute/path/to/published_scenes/scenes/south_kensington/scene.json
+```
+
+The output opens the RSM exterior and includes the selected indoor preview.
+It uses the existing public South Kensington city chunks, so initial city
+loading still transfers about 255 MB. The room loads on demand (20.3 MB).
+`model.prefer_parts` opts this separate host into the existing chunk loader;
+it does not change the default behavior of other scenes. `indoor-build.json`
+records the framework source commit and the unchanged room hash. Host the
+output directory as static files under a new site identity. This command only
+packages files; it does not publish or modify any existing hosted site.
+
 ## Checks
 
 ```sh
